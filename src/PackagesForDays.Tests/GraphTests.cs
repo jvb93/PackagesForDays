@@ -66,6 +66,45 @@ namespace PackagesForDays.Tests
 
         }
 
+        [TestMethod]
+        public void DoesGraphContainCircularReference()
+        {
+            Graph<int> circular = new Graph<int>();
+            var circularParent = circular.AddNode(5);
+            var circularChild = circular.AddNode(3);
+
+            circular.AddDirectedEdge(circularParent, circularChild);
+            circular.AddDirectedEdge(circularChild, circularParent);
+
+            Assert.IsTrue(circular.ContainsCircularReference());
+
+
+        }
+
+        [TestMethod]
+        public void DoesGraphNotContainCircularReference()
+        {
+            Graph<int> graph = new Graph<int>();
+            var parent = graph.AddNode(5);
+            var child = graph.AddNode(3);
+            var grandchild = graph.AddNode(4);
+            
+            graph.AddDirectedEdge(parent, child);
+            graph.AddDirectedEdge(child, grandchild);
+
+            Assert.IsFalse(graph.ContainsCircularReference());
+
+            var emptyGraph = new Graph<int>();
+            Assert.IsFalse(emptyGraph.ContainsCircularReference());
+
+            var simpleGraph = new Graph<int>();
+            simpleGraph.AddNode(5);
+            Assert.IsFalse(simpleGraph.ContainsCircularReference());
+
+
+
+        }
+
 
 
     }
