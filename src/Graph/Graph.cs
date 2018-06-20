@@ -148,7 +148,69 @@ namespace Graph
             return false;
         }
 
-      
+        /// <summary>
+        /// Topologically sort this graph
+        /// reference: https://en.wikipedia.org/wiki/Topological_sorting
+        /// </summary>
+        /// <returns>A non-unique representation of the sorted graph</returns>
+        public string TopologicalSort()
+        {
+            var sorted = new List<Node<T>>();
+
+            // keep a reference to each node and whether or not we have encountered it in the recursive steps 
+            // if a given node is "true" that means there is a circular reference
+            Dictionary<Node<T>, bool> callStack = new Dictionary<Node<T>, bool>();
+
+            //loop through each node
+            foreach (var node in Nodes)
+            {
+                // only bother visiting non-visited nodes
+                if (!node.IsVisited)
+                {
+                    Visit(node, sorted, callStack);
+                }
+            }
+
+            //cleanup the nodes by unvisiting
+            UnvisitEachNode();
+
+            //turn the sorted list into an array if possible
+            return sorted.Any() ?  string.Join(", ", sorted.Select(x=>x.Value)) : null;
+        }
+        private void Visit(Node<T> node, List<Node<T>> sorted, Dictionary<Node<T>, bool> callStack)
+        {
+
+            // check if we have encountered this node before in a previous iteration of this function
+            // if it's in our call stack and marked as true, that means this isn't the first time we've been here and a cycle is detected
+            if (callStack.ContainsKey(node) && callStack[node])
+            {
+                
+               throw new ArgumentException("The dependency tree definition contains a circular reference, this is invalid.");
+             
+            }
+
+            //we've visited this node before, but not as a part of a recursive cycle, so we can start backtracking the recursion
+            if (node.IsVisited)
+            {
+                return;
+            }
+
+            //never visited, so let's visit the node and add it to our callstack
+            node.IsVisited = true;
+            callStack.Add(node, true);
+
+            //recursively repeat the above process for each child of this node          
+            foreach (var child in node.Children)
+            {
+                Visit(child, sorted, callStack);
+            }
+
+            //we checked every child of this node and found no circular references
+            callStack[node] = false;
+
+            //add this node in the correct order to our sorted list
+            sorted.Add(node);
+        }
 
         private void UnvisitEachNode()
         {

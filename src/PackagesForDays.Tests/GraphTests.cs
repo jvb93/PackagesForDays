@@ -105,6 +105,24 @@ namespace PackagesForDays.Tests
 
         }
 
+        [TestMethod]
+        public void CanTopologicSort()
+        {
+            Graph<int> graph = new Graph<int>();
+            var parent = graph.AddNode(5);
+            var child = graph.AddNode(3);
+            var grandchild = graph.AddNode(4);
+
+            graph.AddDirectedEdge(parent, child);
+            graph.AddDirectedEdge(child, grandchild);
+
+            var randomNode = graph.AddNode(50);
+
+            var sorted = graph.TopologicalSort();
+            Assert.IsFalse(string.IsNullOrWhiteSpace(sorted));
+
+        }
+
 
 
     }
