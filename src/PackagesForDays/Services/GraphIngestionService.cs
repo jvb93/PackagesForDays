@@ -54,6 +54,7 @@ namespace PackagesForDays.Services
                     toReturn.AddDirectedEdge(parent, edge);
 
                     //check if there are now any circular depencies by sorting after adding this relationship
+
                     toReturn.TopologicalSort();
                 }
 

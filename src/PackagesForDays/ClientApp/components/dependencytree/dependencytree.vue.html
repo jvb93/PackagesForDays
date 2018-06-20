@@ -1,0 +1,65 @@
+<template>
+    <div>
+        <b-row class="my-3">
+            <b-col>
+                <b-card header="Dependency Tree Sorter"  :class="{'whirl': isLoading, 'ringed': isLoading}">
+                    <b-card-body>
+                        <p>Please enter a graph definition according to the examples in the prompt, omitting the hard brackets: []</p>
+                      
+                        <b-form-group id="exampleInputGroup2"
+                                      label="Graph Definition:"
+                                      label-for="exampleInput2">
+                            <b-form-input id="exampleInput2"
+                                          type="text"
+                                          v-model="graphDefinition"
+                                          required
+                                          placeholder="'KittenService: CamelCaser', 'CamelCaser: '">
+                            </b-form-input>
+                        </b-form-group>   
+                        <b-button-group>
+                            <b-button @click="setValidExample">Try a valid example</b-button>
+                            <b-button @click="setInvalidExample">Try an invalid example</b-button>
+                        </b-button-group>
+                        <b-button :disabled="!graphDefinition.length" type="button" @click="onSubmit" variant="primary">Submit</b-button>
+                    </b-card-body>
+                   
+                  
+                   
+                </b-card>
+
+
+            </b-col>
+
+        </b-row>
+
+        <b-row v-if="results.length">
+            <b-col>
+                <b-card header="Results">
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Request</th>
+                                <th>Result</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in results">
+                                <td>{{ item.request }}</td>
+                                <td>{{ item.result }}</td>                              
+                            </tr>
+                        </tbody>
+                    </table>
+                </b-card>
+
+
+            </b-col>
+
+        </b-row>
+    </div>
+   
+</template>
+
+<script src="./dependencytree.ts"></script>

@@ -104,7 +104,7 @@ namespace Graph
             UnvisitEachNode();
 
             //turn the sorted list into an array if possible
-            return sorted.Any() ?  string.Join(", ", sorted.Select(x=>x.Value)) : null;
+            return sorted.Any() ?  string.Join(", ", sorted.Select(x=>x.Value).Reverse()) : null;
         }
         private void Visit(Node<T> node, List<Node<T>> sorted, Dictionary<Node<T>, bool> callStack)
         {

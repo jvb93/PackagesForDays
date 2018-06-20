@@ -1,14 +1,22 @@
 <template>
-    <div id='app-root' class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3">
-                <menu-component />
-            </div>
-            <div class="col-sm-9">
-                <router-view></router-view>
-            </div>
-        </div>
+    <div>
+        <b-navbar toggleable="md" type="dark" variant="primary">
+
+            <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+            <b-navbar-brand href="/">Packages For Days</b-navbar-brand>
+
+        </b-navbar>
+        <b-container id="app-root">
+        
+            <b-row>
+                <b-col>
+                    <router-view></router-view>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
+    
 </template>
 
 <script src="./app.ts"></script>

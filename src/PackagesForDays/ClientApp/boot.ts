@@ -1,13 +1,13 @@
 import './css/site.css';
-import 'bootstrap';
+import BootstrapVue from 'bootstrap-vue';
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
+Vue.use(BootstrapVue);
 
 const routes = [
-    { path: '/', component: require('./components/home/home.vue.html') },
-    { path: '/counter', component: require('./components/counter/counter.vue.html') },
-    { path: '/fetchdata', component: require('./components/fetchdata/fetchdata.vue.html') }
+    { path: '/', component: require('./components/dependencytree/dependencytree.vue.html') }
 ];
 
 new Vue({
