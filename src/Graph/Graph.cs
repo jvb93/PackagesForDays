@@ -76,80 +76,9 @@ namespace Graph
             return true;
         }
 
-
-        /// <summary>
-        /// Check to see if this graph contains any circular references
-        /// </summary>
-        /// <returns>True if there is a cycle in the graph</returns>
-        public bool ContainsCircularReference()
-        {
-            //keep a reference to each node and whether or not we have encountered it in the recursive steps 
-            // if a given node is "true" that means there is a circular reference
-            Dictionary<Node<T>, bool> callStack = new Dictionary<Node<T>, bool>();
-
-            //loop through each node in the graph
-            foreach(var node in Nodes)
-            { 
-                // if the reference finder finds a circular reference from this node, we can short circuit
-                // simply returning true
-                if (CircularReferenceFinder(node, callStack))
-                {
-                    //cleaup our visited nodes
-                    UnvisitEachNode();
-                    return true;
-                }
-            }
-
-            //we went through each node and found no circular references therefore there are no cycles in this graph
-            //cleaup our visited nodes
-            UnvisitEachNode();
-            return false;
-        }
-
-        /// <summary>
-        /// Recursively look at each node and see if there are any circular references using modified DFS
-        /// </summary>
-        /// <param name="parent">the root node</param>
-        /// <param name="callStack"> a reference to each node previously encountered</param>
-        /// <returns></returns>
-        private bool CircularReferenceFinder(Node<T> parent, Dictionary<Node<T>, bool> callStack)
-        {
-            // check if we have encountered this node before in a previous iteration of this function
-            // if it's in our call stack and marked as true, that means this isn't the first time we've been here and a cycle is detected
-            if (callStack.ContainsKey(parent) && callStack[parent])
-            {
-                return true;
-
-            }
-            //we've visited this node before, but not as a part of a recursive cycle, so we can return false (no cycles) here
-            if (parent.IsVisited)
-            {
-                return false;
-            }
-
-            //this is a newly visited node, so we mark it as visited and add it to our callstack 
-            parent.IsVisited = true;       
-            callStack.Add(parent, true);
-
-            //recursively repeat the above process for each child of this node          
-            foreach (var node in parent.Children)
-            {
-                if (CircularReferenceFinder(node, callStack))
-                {
-                    //we found a circular reference somewhere down the line...
-                    return true;
-                }
-                   
-            }
-        
-            //we checked every child of this node and found no circular references
-            callStack[parent] = false;
-
-            return false;
-        }
-
         /// <summary>
         /// Topologically sort this graph
+        /// this can also detect whether or not a circular reference is present by throwing an argument exception if true
         /// reference: https://en.wikipedia.org/wiki/Topological_sorting
         /// </summary>
         /// <returns>A non-unique representation of the sorted graph</returns>

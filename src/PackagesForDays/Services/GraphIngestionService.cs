@@ -53,11 +53,8 @@ namespace PackagesForDays.Services
                     //we have a parent/child relationship, add it
                     toReturn.AddDirectedEdge(parent, edge);
 
-                    //check if there are now any circular depencies after adding this relationship
-                    if (toReturn.ContainsCircularReference())
-                    {
-                        throw new ArgumentException("The dependency tree definition contains a circular reference, this is invalid.");
-                    }
+                    //check if there are now any circular depencies by sorting after adding this relationship
+                    toReturn.TopologicalSort();
                 }
 
             }

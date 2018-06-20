@@ -1,4 +1,5 @@
 
+using System;
 using System.Linq;
 using Graph;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -75,10 +76,9 @@ namespace PackagesForDays.Tests
 
             circular.AddDirectedEdge(circularParent, circularChild);
             circular.AddDirectedEdge(circularChild, circularParent);
-
-            Assert.IsTrue(circular.ContainsCircularReference());
-
-
+               
+            Assert.ThrowsException<ArgumentException>(() => circular.TopologicalSort());
+             
         }
 
         [TestMethod]
@@ -92,14 +92,24 @@ namespace PackagesForDays.Tests
             graph.AddDirectedEdge(parent, child);
             graph.AddDirectedEdge(child, grandchild);
 
-            Assert.IsFalse(graph.ContainsCircularReference());
-
             var emptyGraph = new Graph<int>();
-            Assert.IsFalse(emptyGraph.ContainsCircularReference());
 
             var simpleGraph = new Graph<int>();
+
             simpleGraph.AddNode(5);
-            Assert.IsFalse(simpleGraph.ContainsCircularReference());
+
+
+            try
+            {
+                graph.TopologicalSort();
+                emptyGraph.TopologicalSort();
+                simpleGraph.TopologicalSort();
+            }
+            catch (Exception e)
+            {
+               Assert.Fail(e.Message);
+            }
+
 
 
 
