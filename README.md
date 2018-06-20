@@ -8,7 +8,6 @@ This is a package manager demonstration that uses directed graphs and depth-firs
 ### Dependencies
 - .NET Core SDK 2.x
 - NPM (any newer version should do)
-- Webpack
 - Not Internet Explorer
 
 
