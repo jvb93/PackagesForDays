@@ -1,5 +1,9 @@
 # Packages For Days
 
+**Author: Justin Van Bibber**
+
+**Last Updated: 06-20-2018**
+
 ## What is it?
 This is a package manager demonstration that uses directed graphs and depth-first search to identify circular dependencies
 
