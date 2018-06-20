@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PackagesForDays.Services;
 
 namespace PackagesForDays
 {
@@ -23,6 +24,7 @@ namespace PackagesForDays
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddScoped<IGraphIngestionService, GraphIngestionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

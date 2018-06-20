@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // generic graph class heavily inspired by microsoft's Scott Mitchell
 // https://msdn.microsoft.com/en-us/library/ms379574(v=vs.80).aspx
@@ -147,6 +148,7 @@ namespace Graph
             return false;
         }
 
+      
 
         private void UnvisitEachNode()
         {
