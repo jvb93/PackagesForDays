@@ -52,7 +52,7 @@ namespace Graph
         public bool Remove(T value)
         {
             //remove the node
-            Node<T> nodeToRemove = graphSet.Find(node=>node.Value.Equals(value));
+            Node<T> nodeToRemove = GetNodeWithValue(value);
 
             if (nodeToRemove == null)
             {
